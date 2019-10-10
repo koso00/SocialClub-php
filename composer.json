@@ -1,0 +1,10 @@
+{
+    "require": {
+        "kyranrana/cloudflare-bypass": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nve\\SocialClub\\": "src"
+        }
+    }
+}
