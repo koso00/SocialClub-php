@@ -95,11 +95,12 @@ class BaseRequest {
             $h_ = $h_." --header '$h' ";
         }
         
-
-        $data =  http_build_query($this->post,null,"&");
+        $data = array_filter($this->post,function($var){return $var != null;});
+        $data =  http_build_query($data,null,"&");
         $method = $this->method;
         $url = Constants::BASE_URL.$this->url;
-        $cmd = "curl  --silent $method --url $url $h_ --data '$data'";
+        $cmd = "curl --max-time 4  --silent --request $method --url $url $h_ --data '$data'";
+        
         echo $cmd;
         //echo $cmd;
         //echo $cmd;

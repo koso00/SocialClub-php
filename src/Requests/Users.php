@@ -44,9 +44,10 @@ class Users {
                     break;
             }
         }
-        echo json_encode($request);
+       // echo json_encode($request);
 
         $this->container->register("id",(new SocialClubId())->setToken($request->token)->setId($request->user->id));
+        return $request;
     }
 
     public function login($username,$password){
@@ -56,11 +57,12 @@ class Users {
             "password" => $password
         ))->execute();
     
-        echo json_encode($request);
+        //echo json_encode($request);
 
 
         $this->container->register("id",(new SocialClubId())->setToken($request->token)->setId($request->user->id));
-        
+        return $request;
+
     }
 
     public function follow($followingId){
@@ -69,11 +71,71 @@ class Users {
             "followingId" => $followingId
         ))->execute();
     
-        echo json_encode($request);
-        
-        
+        //echo json_encode($request);
+        return $request;
         //$this->container->register("id",(new SocialClubId())->setToken($request->token));
     }
 
+    public function changePassword($oldPassword,$newPassword){
+        $request = (new BaseRequest($this->container,true))->post('follows')->send(array(
+            "userId" => $this->container->get('id')->getId(),
+            "oldPassword" => $oldPassword,
+            "newPassword" => $newPassword
+        ))->execute();
+    
+//        echo json_encode($request);
+        return $request;
+
+        //$this->container->register("id",(new SocialClubId())->setToken($request->token));
+    }
+
+    public function getActivity($category,$newPassword,$maxId = null){
+
+        switch($category){
+            case Constants::ACTIVITY_CATEGORY_ALL:break;
+            case Constants::ACTIVITY_CATEGORY_COMMENT:break;
+            case Constants::ACTIVITY_CATEGORY_MENTION:break;
+            case Constants::ACTIVITY_CATEGORY_FRIEND:break;
+            case Constants::ACTIVITY_CATEGORY_LOVE:break;
+            default:
+                throw new Exceptions\ActivityCategoryNotFoundException("$category is not an activity category");
+                break;
+        }
+
+        $request = (new BaseRequest($this->container,true))->post('users/activity')->send(array(
+            "userId" => $this->container->get('id')->getId(),
+            "category" => $category,
+            "maxId" => $maxId
+        ))->execute();
+    
+//        echo json_encode($request);
+        return $request;
+        //$this->container->register("id",(new SocialClubId())->setToken($request->token));
+    }
+
+    public function getActivityForMe($category,$newPassword,$maxId = null){
+
+        switch($category){
+            case Constants::ACTIVITY_CATEGORY_ALL:break;
+            case Constants::ACTIVITY_CATEGORY_COMMENT:break;
+            case Constants::ACTIVITY_CATEGORY_MENTION:break;
+            case Constants::ACTIVITY_CATEGORY_FRIEND:break;
+            case Constants::ACTIVITY_CATEGORY_LOVE:break;
+            default:
+                throw new Exceptions\ActivityCategoryNotFoundException("$category is not an activity category");
+                break;
+        }
+
+        $request = (new BaseRequest($this->container,true))->post('users/activity/for-me')->send(array(
+            "userId" => $this->container->get('id')->getId(),
+            "category" => $category,
+            "maxId" => $maxId
+        ))->execute();
+    
+//        echo json_encode($request);
+        return $request;
+        //$this->container->register("id",(new SocialClubId())->setToken($request->token));
+    }
+    
     
 }
