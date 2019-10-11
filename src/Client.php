@@ -3,7 +3,7 @@
 namespace Nve\SocialClub;
 use Nve\SocialClub\Container;
 
-class SocialClub {
+class Client {
 
     private $container;
 
