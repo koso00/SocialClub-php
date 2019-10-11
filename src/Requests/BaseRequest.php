@@ -44,6 +44,7 @@ class BaseRequest {
         return (json_last_error() == JSON_ERROR_NONE);
     }
     public function execute(){
+        
         /*
         $res = "159.65.237.253:8080
         134.209.162.5:80
@@ -86,6 +87,10 @@ class BaseRequest {
         );
 
         if ($this->requireToken){
+
+            if ($this->container->get('id')->getToken() == null){
+                throw new Exceptions\LoginNeededException("To access this resource you need to login first; use SocialClub->users->login() method");
+            }
             array_push($headers,'X-Access-Token: '.$this->container->get('id')->getToken());
         }
         

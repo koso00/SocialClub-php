@@ -9,9 +9,10 @@ class SocialClub {
 
     public $users;
     public $posts;
-    
+
     public function __construct(){
         $this->container = new Container();
+        $this->container->register("id",new SocialClubId());
         $this->users = (new Requests\Users($this->container));
         $this->posts = (new Requests\Posts($this->container));
 

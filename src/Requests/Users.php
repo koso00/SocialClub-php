@@ -46,8 +46,8 @@ class Users {
         }
        // echo json_encode($request);
 
-        $this->container->register("id",(new SocialClubId())->setToken($request->token)->setId($request->user->id));
-        return $request;
+       $this->container->get("id")->setToken($request->token)->setId($request->user->id);
+       return $request;
     }
 
     public function login($username,$password){
@@ -60,7 +60,7 @@ class Users {
         //echo json_encode($request);
 
 
-        $this->container->register("id",(new SocialClubId())->setToken($request->token)->setId($request->user->id));
+        $this->container->get("id")->setToken($request->token)->setId($request->user->id);
         return $request;
 
     }
