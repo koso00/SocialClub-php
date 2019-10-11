@@ -89,7 +89,7 @@ class Users {
         //$this->container->register("id",(new SocialClubId())->setToken($request->token));
     }
 
-    public function getActivity($category,$newPassword,$maxId = null){
+    public function getActivity($category,$maxId = null){
 
         switch($category){
             case Constants::ACTIVITY_CATEGORY_ALL:break;
@@ -113,7 +113,7 @@ class Users {
         //$this->container->register("id",(new SocialClubId())->setToken($request->token));
     }
 
-    public function getActivityForMe($category,$newPassword,$maxId = null){
+    public function getActivityForMe($category,$maxId = null){
 
         switch($category){
             case Constants::ACTIVITY_CATEGORY_ALL:break;
