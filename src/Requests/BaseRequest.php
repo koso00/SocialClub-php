@@ -12,7 +12,7 @@ class BaseRequest {
     private $request;
     private $method;
     private $url;
-    private $post;
+    private $post = [];
     private $requireToken;
 
     public function __construct($container,$requireToken = false){
@@ -32,8 +32,11 @@ class BaseRequest {
         $this->method = 'POST';
         return $this;
     }
-    
-    
+    public function delete($url){
+        $this->url = $url;
+        $this->method = "DELETE";
+        return $this;
+    }
     public function send(array $post){
         $this->post = $post;
         return $this;
@@ -100,14 +103,20 @@ class BaseRequest {
             $h_ = $h_." --header '$h' ";
         }
         
-        $data = array_filter($this->post,function($var){return $var != null;});
-        $data =  http_build_query($data,null,"&");
+        if (count($this->post) != 0){
+            $data = array_filter($this->post,function($var){return $var != null;});
+            $data =  http_build_query($data,null,"&");
+            $data = "--data '$data'";
+        }else{
+            $data = "";
+        }
+       
         $method = $this->method;
         $url = Constants::BASE_URL.$this->url;
 
         $proxy = $this->container->get("proxy") != null ? "--proxy ".$this->container->get("proxy") : '';
         // --max-time 4
-        $cmd = "curl $proxy --silent --request $method --url $url $h_ --data '$data'";
+        $cmd = "curl $proxy --silent --request $method --url '$url' $h_ $data";
         
         echo $cmd;
         //echo $cmd;

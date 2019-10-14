@@ -75,7 +75,13 @@ class Users {
         return $request;
         //$this->container->register("id",(new SocialClubId())->setToken($request->token));
     } 
-
+    public function unfollow($followingId){
+        $request = (new BaseRequest($this->container,true))->delete('follows?followerId='.$this->container->get('id')->getId().'&followingId='.$followingId)->execute();
+    
+        //echo json_encode($request);
+        return $request;
+        //$this->container->register("id",(new SocialClubId())->setToken($request->token));
+    } 
     public function changePassword($oldPassword,$newPassword){
         $request = (new BaseRequest($this->container,true))->post('follows')->send(array(
             "userId" => $this->container->get('id')->getId(),

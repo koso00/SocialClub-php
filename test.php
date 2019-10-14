@@ -20,6 +20,7 @@ $socialclub->users->login($username,$password);
 while($i < $endId){
     //$socialclub->signup("danisdnsaskd@".generateRandomString().".com",generateRandomString(),generateRandomString(),generateRandomString());
     $socialclub->users->follow($i);
+    $socialclub->users->unfollow($i);
     //sleep(0.5);
     $i++;
 }
