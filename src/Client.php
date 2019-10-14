@@ -12,6 +12,12 @@ class Client {
 
     public function __construct(){
         $this->container = new Container();
+
+        $proxy = getenv("PROXY");
+        if ($proxy == false){
+            $proxy = null;
+        }
+        $this->container->register("proxy",$proxy);
         $this->container->register("id",new SocialClubId());
         $this->users = (new Requests\Users($this->container));
         $this->posts = (new Requests\Posts($this->container));

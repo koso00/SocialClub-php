@@ -74,7 +74,7 @@ class Users {
         //echo json_encode($request);
         return $request;
         //$this->container->register("id",(new SocialClubId())->setToken($request->token));
-    }
+    } 
 
     public function changePassword($oldPassword,$newPassword){
         $request = (new BaseRequest($this->container,true))->post('follows')->send(array(

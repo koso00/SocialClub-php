@@ -104,7 +104,10 @@ class BaseRequest {
         $data =  http_build_query($data,null,"&");
         $method = $this->method;
         $url = Constants::BASE_URL.$this->url;
-        $cmd = "curl --max-time 4  --silent --request $method --url $url $h_ --data '$data'";
+
+        $proxy = $this->container->get("proxy") != null ? "--proxy ".$this->container->get("proxy") : '';
+        // --max-time 4
+        $cmd = "curl $proxy --silent --request $method --url $url $h_ --data '$data'";
         
         echo $cmd;
         //echo $cmd;
