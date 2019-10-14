@@ -3,7 +3,6 @@
 SocialClub is a freedom of speech inspired instagram clone.
 Here the unofficial api supporting almost every basic operation
 
-
 ## Installation
 
 For now, just download the repo and import the auloader like this
